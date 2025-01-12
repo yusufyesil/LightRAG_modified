@@ -174,7 +174,7 @@ class PGKVStorage(BaseKVStorage):
     ################ QUERY METHODS ################
 
     async def get_by_id(self, id: str) -> Union[dict, None]:
-        """Get doc_full data by id."""
+        """Get doc_full data by id.""" 
         sql = SQL_TEMPLATES["get_by_id_" + self.namespace]
         params = {"workspace": self.db.workspace, "id": id}
         if "llm_response_cache" == self.namespace:
@@ -204,7 +204,7 @@ class PGKVStorage(BaseKVStorage):
 
     # Query by id
     async def get_by_ids(self, ids: List[str], fields=None) -> Union[List[dict], None]:
-        """Get doc_chunks data by id"""
+        """Get doc_chunks data by id"""   
         sql = SQL_TEMPLATES["get_by_ids_" + self.namespace].format(
             ids=",".join([f"'{id}'" for id in ids])
         )
@@ -409,7 +409,8 @@ class PGDocStatusStorage(DocStatusStorage):
 
     async def filter_keys(self, data: list[str]) -> set[str]:
         """Return keys that don't exist in storage"""
-        sql = f"SELECT id FROM LIGHTRAG_DOC_STATUS WHERE workspace=$1 AND id IN ({",".join([f"'{_id}'" for _id in data])})"
+        id_list = ",".join([f"'{_id}'" for _id in data])
+	sql = f"SELECT id FROM LIGHTRAG_DOC_STATUS WHERE workspace=$1 AND id IN ({id_list})"
         result = await self.db.query(sql, {"workspace": self.db.workspace}, True)
         # The result is like [{'id': 'id1'}, {'id': 'id2'}, ...].
         if result is None:
