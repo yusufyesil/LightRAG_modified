@@ -408,16 +408,16 @@ class PGDocStatusStorage(DocStatusStorage):
         pass
 
     async def filter_keys(self, data: list[str]) -> set[str]:
-        """Return keys that don't exist in storage"""
-        id_list = ",".join([f"'{_id}'" for _id in data])
+	"""Return keys that don't exist in storage"""
+	id_list = ",".join([f"'{_id}'" for _id in data])
 	sql = f"SELECT id FROM LIGHTRAG_DOC_STATUS WHERE workspace=$1 AND id IN ({id_list})"
-        result = await self.db.query(sql, {"workspace": self.db.workspace}, True)
-        # The result is like [{'id': 'id1'}, {'id': 'id2'}, ...].
-        if result is None:
-            return set(data)
-        else:
-            existed = set([element["id"] for element in result])
-            return set(data) - existed
+	result = await self.db.query(sql, {"workspace": self.db.workspace}, True)
+	# The result is like [{'id': 'id1'}, {'id': 'id2'}, ...].
+	if result is None:
+		return set(data)
+	else:
+		existed = set([element["id"] for element in result])
+	        return set(data) - existed
 
     async def get_status_counts(self) -> Dict[str, int]:
         """Get counts of documents in each status"""
