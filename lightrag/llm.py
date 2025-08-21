@@ -589,7 +589,7 @@ async def gpt_4o_complete(
     )
 
 
-async def gpt_4o__complete(
+async def gpt_4o_mini_complete(
     prompt, system_prompt=None, history_messages=[], keyword_extraction=False, **kwargs
 ) -> str:
     keyword_extraction = kwargs.pop("keyword_extraction", None)
