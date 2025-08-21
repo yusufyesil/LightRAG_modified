@@ -596,7 +596,7 @@ async def gpt_4o_mini_complete(
     if keyword_extraction:
         kwargs["response_format"] = GPTKeywordExtractionFormat
     return await openai_complete_if_cache(
-        "gpt-5-mini",
+        "gpt-4o-mini",
         prompt,
         system_prompt=system_prompt,
         history_messages=history_messages,
