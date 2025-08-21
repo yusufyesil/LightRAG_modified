@@ -581,7 +581,7 @@ async def gpt_4o_complete(
     if keyword_extraction:
         kwargs["response_format"] = GPTKeywordExtractionFormat
     return await openai_complete_if_cache(
-        "gpt-4o",
+        "gpt-5",
         prompt,
         system_prompt=system_prompt,
         history_messages=history_messages,
@@ -589,14 +589,14 @@ async def gpt_4o_complete(
     )
 
 
-async def gpt_4o_mini_complete(
+async def gpt_4o__complete(
     prompt, system_prompt=None, history_messages=[], keyword_extraction=False, **kwargs
 ) -> str:
     keyword_extraction = kwargs.pop("keyword_extraction", None)
     if keyword_extraction:
         kwargs["response_format"] = GPTKeywordExtractionFormat
     return await openai_complete_if_cache(
-        "gpt-4o-mini",
+        "gpt-5-mini",
         prompt,
         system_prompt=system_prompt,
         history_messages=history_messages,
